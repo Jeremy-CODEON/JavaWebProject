@@ -79,18 +79,19 @@
 				<nav class="sidebar-nav">
 					<ul id="sidebarnav">
 						<li><a class="waves-effect waves-dark" aria-expanded="false"
-							href=""><span class="hide-menu">音乐类别</span> </a></li>
-						<li><a class="waves-effect waves-dark"
-							href="searchMusicListByCategory1" aria-expanded="false"><i
-								class="fa fa-tachometer"></i><span class="hide-menu">纯音乐</span></a>
-						</li>
-						<li><a class="waves-effect waves-dark"
-							href="searchMusicListByCategory2" aria-expanded="false"><i
-								class="fa fa-user-circle-o"></i><span class="hide-menu">欧美民谣</span></a>
-						</li>
-						<li><a class="waves-effect waves-dark"
-							href="searchMusicListByCategory3" aria-expanded="false"><i
-								class="fa fa-table"></i><span class="hide-menu">国语</span></a></li>
+							href=""><span class="hide-menu">管理导航</span> </a></li>
+						<li><a class="waves-effect waves-dark" href="#music-card"
+							aria-expanded="false"><i class="fa fa-tachometer"></i><span
+								class="hide-menu">音乐列表</span></a></li>
+						<li><a class="waves-effect waves-dark" href="#statistic-card"
+							aria-expanded="false"><i class="fa fa-user-circle-o"></i><span
+								class="hide-menu">销售报表</span></a></li>
+						<li><a class="waves-effect waves-dark" href="#charts-card"
+							aria-expanded="false"><i class="fa fa-table"></i><span
+								class="hide-menu">销售统计图</span></a></li>
+						<li><a class="waves-effect waves-dark" href="#log-card"
+							aria-expanded="false"><i class="fa fa-table"></i><span
+								class="hide-menu">用户日志记录</span></a></li>
 					</ul>
 				</nav>
 				<!-- End Sidebar navigation -->

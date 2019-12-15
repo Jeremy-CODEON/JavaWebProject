@@ -88,7 +88,7 @@ public class SalerController {
 		List<StatisCategoryInfo> cateInfoList = statisticService.getStatisticCategoryInfo();
 		mv.addObject("cateInfoList", cateInfoList);
 
-		// 获取类别的销售统计信息
+		// 获取日志记录列表
 		List<Log> logList = logService.getAllLog();
 		mv.addObject("logList", logList);
 

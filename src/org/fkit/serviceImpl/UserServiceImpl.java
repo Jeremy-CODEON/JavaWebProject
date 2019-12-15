@@ -42,8 +42,7 @@ public class UserServiceImpl implements UserService{
 	public int updateLoginname(String loginname, Integer id)
 	{
 		return userMapper.updateLoginname(loginname, id);
-	}
-	
+	}	
 	@Override
 	public int updateUsername(String username, Integer id)
 	{

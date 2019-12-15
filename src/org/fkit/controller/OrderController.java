@@ -194,6 +194,7 @@ public class OrderController {
 		}
 	}
 
+	// 跳转到订单详情页
 	@RequestMapping(value = "/orderDetail/{id}")
 	public ModelAndView orderDetail(@PathVariable("id") int id, ModelAndView mv) {
 		// System.out.println("hhh1");

@@ -200,7 +200,7 @@ public class MusicController {
 		}
 	}
 
-	// ÃÌº”“Ù¿÷
+	// …æ≥˝“Ù¿÷
 	@RequestMapping(value="/deleteMusic",produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String deleteMusic(int id, ModelAndView mv,HttpSession session)
