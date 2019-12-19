@@ -14,28 +14,28 @@
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
 <link
-	href="<%=basePath%>/CSS/indexCSS/assets/node_modules/bootstrap/css/bootstrap.min.css"
+	href="<%=basePath%>CSS/indexCSS/assets/node_modules/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
-	href="<%=basePath%>/CSS/indexCSS/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+	href="<%=basePath%>CSS/indexCSS/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
 	rel="stylesheet">
 <!-- This page CSS -->
 <!-- chartist CSS -->
 <link
-	href="<%=basePath%>/CSS/indexCSS/assets/node_modules/morrisjs/morris.css"
+	href="<%=basePath%>CSS/indexCSS/assets/node_modules/morrisjs/morris.css"
 	rel="stylesheet">
 <!--c3 CSS -->
 <link
-	href="<%=basePath%>/CSS/indexCSS/assets/node_modules/c3-master/c3.min.css"
+	href="<%=basePath%>CSS/indexCSS/assets/node_modules/c3-master/c3.min.css"
 	rel="stylesheet">
 <!-- Custom CSS -->
-<link href="<%=basePath%>/CSS/indexCSS/html/css/style.css"
+<link href="<%=basePath%>CSS/indexCSS/html/css/style.css"
 	rel="stylesheet">
 <!-- Dashboard 1 Page CSS -->
-<link href="<%=basePath%>/CSS/indexCSS/html/css/pages/dashboard1.css"
+<link href="<%=basePath%>CSS/indexCSS/html/css/pages/dashboard1.css"
 	rel="stylesheet">
 <!-- You can change the theme colors from here -->
-<link href="<%=basePath%>/CSS/indexCSS/html/css/colors/default.css"
+<link href="<%=basePath%>CSS/indexCSS/html/css/colors/default.css"
 	id="theme" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
@@ -45,10 +45,10 @@
 		<header class="topbar" style="margin-top: 0px;">
 			<nav class="navbar top-navbar navbar-expand-md navbar-light">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="<%=basePath%>/manage"> <!-- Logo icon -->
+					<a class="navbar-brand" href="<%=basePath%>manage"> <!-- Logo icon -->
 						<b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 							<!-- Dark Logo icon --> <img
-							src="<%=basePath%>/ICON/logo-icon.png" alt="homepage"
+							src="<%=basePath%>ICON/logo-icon.png" alt="homepage"
 							class="dark-logo" />
 					</b> <span> 销售信息管理 </span>
 					</a>
@@ -122,7 +122,7 @@
 						<div class="card">
 							<!-- Tab panes -->
 							<div class="card-body">
-								<form action="<%=basePath%>/alterMusicInfo"
+								<form action="<%=basePath%>alterMusicInfo"
 									class="form-horizontal form-material">
 									<div class="d-flex">
 										<div>
