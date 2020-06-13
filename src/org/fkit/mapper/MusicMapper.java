@@ -16,7 +16,7 @@ public interface MusicMapper {
 	@Select("select * from tb_music where name like concat('%',#{input},'%') or singer like concat('%',#{input},'%') or description like concat('%',#{input},'%') or album like concat('%',#{input},'%')")
 	List<Music> getByWord(@Param("input") String input);
 
-	@Select("select * from tb_music where category=#{category}")
+	@Select("select * from tb_music where category=#{category} order by purchases desc")
 	List<Music> getByCategory(@Param("category") String category);
 
 	@Select("select * from tb_music where id=#{id}")
@@ -57,5 +57,8 @@ public interface MusicMapper {
 	
 	@Delete("delete from tb_music where id=#{id}")
 	int deleteById(@Param("id")int id);
+	
+	@Select("select * from tb_music order by purchases desc")
+	List<Music> getAllByPurchasesOrder();
 
 }

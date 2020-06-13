@@ -29,12 +29,18 @@
 							placeholder="Loginname" autocomplete="off">
 					</div>
 					<div class="form-group">
+						<label for="age" class="sr-only">年龄：</label> <input
+							type="text" class="form-control" id="age"
+							name="age" placeholder="Age"
+							autocomplete="off">
+					</div>
+					<div class="form-group">
 						<label for="password" class="sr-only">密码：</label> <input
 							type="password" class="form-control" id="password"
 							name="password" placeholder="Password" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<label for="confirmPassword" class="sr-only">密码：</label> <input
+						<label for="confirmPassword" class="sr-only">确认密码：</label> <input
 							type="password" class="form-control" id="confirmPassword"
 							name="confirmPassword" placeholder="confirmPassword"
 							autocomplete="off">

@@ -40,7 +40,7 @@
 		<header class="topbar" style="margin-top: 0px;">
 			<nav class="navbar top-navbar navbar-expand-md navbar-light">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="${path}/manage"> <!-- Logo icon -->
+					<a class="navbar-brand" href="${path}/salerEnter"> <!-- Logo icon -->
 						<b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 							<!-- Dark Logo icon --> <img src="${path}/ICON/logo-icon.png"
 							alt="homepage" class="dark-logo" />
@@ -58,7 +58,7 @@
 						<!-- ============================================================== -->
 						<!-- Profile -->
 						<!-- ============================================================== -->
-						<li class="nav-item dropdown u-pro"><a href="${path}/manage"
+						<li class="nav-item dropdown u-pro"><a href="${path}/salerEnter"
 							class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
 								class="hidden-md-down">返回首页 &nbsp;</span></a></li>
@@ -83,12 +83,6 @@
 						<li><a class="waves-effect waves-dark" href="#music-card"
 							aria-expanded="false"><i class="fa fa-tachometer"></i><span
 								class="hide-menu">音乐列表</span></a></li>
-						<li><a class="waves-effect waves-dark" href="#statistic-card"
-							aria-expanded="false"><i class="fa fa-user-circle-o"></i><span
-								class="hide-menu">销售报表</span></a></li>
-						<li><a class="waves-effect waves-dark" href="#charts-card"
-							aria-expanded="false"><i class="fa fa-table"></i><span
-								class="hide-menu">销售统计图</span></a></li>
 						<li><a class="waves-effect waves-dark" href="#log-card"
 							aria-expanded="false"><i class="fa fa-table"></i><span
 								class="hide-menu">用户日志记录</span></a></li>

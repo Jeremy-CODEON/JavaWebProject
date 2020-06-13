@@ -35,6 +35,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+<link href="${path}/CSS/selfCSS/myStyle.css" rel="stylesheet">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -126,8 +127,13 @@
 										</c:otherwise>
 									</c:choose>
 
-									<h4 class="card-title m-t-10">${sessionScope.user.loginname}</h4>
-									<h6 class="card-subtitle">音乐充电小店用户</h6>
+									<h2 class="card-title m-t-10">${sessionScope.user.loginname}</h2>
+									<h4 class="card-subtitle">音乐充电小店用户</h2>
+									<div>
+										<c:forEach var="tag" items="${requestScope.userTagList}" varStatus="status">
+										<div class="usertag-style">${tag}</div>
+										</c:forEach>
+									</div>
 								</center>
 							</div>
 						</div>
@@ -246,6 +252,108 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<!-- Column -->
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex">
+									<div>
+										<h5 class="card-title">猜你喜欢</h5>
+									</div>
+								</div>
+								<div class="table-responsive m-t-20 no-wrap">
+									<table class="table vm no-th-brd pro-of-month">
+										<thead>
+											<tr>
+												<th></th>
+												<th>音乐标题</th>
+												<th>歌手</th>
+												<th>专辑</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="music" items="${requestScope.mlMusicList}"
+												varStatus="status">
+												<tr>
+													<td style="width: 50px;"><span class="round">${status.index+1}</span></td>
+													<td>${music.name}</td>
+													<td>${music.singer}</td>
+													<td>${music.album}</td>
+
+													<td>
+														<button onclick="buttonDetail('${music.id}')"
+															class="pure-button">详情</button> <c:choose>
+															<c:when test="${music.state==1}">
+																<button onclick="buttonAddToCart('${music.id}')"
+																	class="pure-button">加入购物车</button>
+															</c:when>
+															<c:when test="${music.state==0}"></c:when>
+															<c:otherwise></c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<!-- Column -->
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex">
+									<div>
+										<h5 class="card-title">小伙伴们在听</h5>
+									</div>
+								</div>
+								<div class="table-responsive m-t-20 no-wrap">
+									<table class="table vm no-th-brd pro-of-month">
+										<thead>
+											<tr>
+												<th></th>
+												<th>音乐标题</th>
+												<th>歌手</th>
+												<th>专辑</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="music" items="${requestScope.olMusicList}"
+												varStatus="status">
+												<tr>
+													<td style="width: 50px;"><span class="round">${status.index+1}</span></td>
+													<td>${music.name}</td>
+													<td>${music.singer}</td>
+													<td>${music.album}</td>
+
+													<td>
+														<button onclick="buttonDetail('${music.id}')"
+															class="pure-button">详情</button> <c:choose>
+															<c:when test="${music.state==1}">
+																<button onclick="buttonAddToCart('${music.id}')"
+																	class="pure-button">加入购物车</button>
+															</c:when>
+															<c:when test="${music.state==0}"></c:when>
+															<c:otherwise></c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="row">
 					<!-- Column -->
@@ -270,12 +378,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="example-email" class="col-md-12">昵称</label>
+										<label class="col-md-12">昵称</label>
 										<div class="col-md-12">
 											<input type="text"
 												placeholder="${sessionScope.user.loginname}"
 												class="form-control form-control-line" name="loginname"
-												id="example-email">
+											>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="example-email" class="col-md-12">年龄</label>
+										<div class="col-md-12">
+											<input type="text"
+												placeholder="${sessionScope.user.age}"
+												class="form-control form-control-line" name="age"
+												readonly="true">
 										</div>
 									</div>
 									<c:choose>
@@ -411,6 +528,26 @@
 		function buttonOrderDetail(id) {
 			window.location.replace("orderDetail/" + id);
 		}
+		function buttonDetail(id) {
+			window.location.replace("musicDetail/" + id);
+		};
+		function buttonAddToCart(music_id) {
+			$.ajax({
+				url : "addToCart",
+				type : 'GET',
+				data : {
+					music_id : music_id
+				},
+				dataType : 'json',
+				success : function(json) {
+					alert(json.message);
+					window.location.replace("userInfo");
+				},
+				error : function() {
+					alert("请求加入购物车出错！");
+				}
+			});
+		};
 	</script>
 </body>
 </html>

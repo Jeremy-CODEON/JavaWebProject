@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import org.fkit.domain.Music;
 import org.fkit.domain.Order;
 import org.fkit.domain.OrderMusic;
 import org.fkit.domain.User;
+import org.fkit.service.BehaviorService;
 import org.fkit.service.CartService;
+import org.fkit.service.CateLogService;
 import org.fkit.service.LogService;
 import org.fkit.service.MusicService;
 import org.fkit.service.OrderMusicService;
@@ -60,6 +63,12 @@ public class OrderController {
 	@Autowired
 	@Qualifier("logService")
 	private LogService logService;
+	@Autowired
+	@Qualifier("cateLogService")
+	private CateLogService cateLogService;
+	@Autowired
+	@Qualifier("behaviorService")
+	private BehaviorService behaviorService;
 
 	// 跳转确认订单页面
 	@RequestMapping(value = "/orderConfirmPage")
@@ -135,11 +144,21 @@ public class OrderController {
 
 			// 插入用户购买音乐的日志记录
 			Date date = new Date();
+			Calendar cal=Calendar.getInstance();
 			List<OrderMusic> orderMusicList = orderService.getOrderMusicByOrderId(order_id);
 			for (OrderMusic orderMusic : orderMusicList) {
+				//为管理员插入日志
 				logService.addLog(user.getId(), "用户(" + user.getLoginname() + ")购买音乐-->音乐id:"
 						+ orderMusic.getMusic().getId() + "-" + orderMusic.getMusic().getName(), date.toString());
+				//为销售插入日志
+				cateLogService.addCateLog(user.getId(), orderMusic.getMusic().getCategory(), "用户(" + user.getLoginname() + ")购买音乐-->音乐id:"
+						+ orderMusic.getMusic().getId() + "-" + orderMusic.getMusic().getName(), date.toString());
+				//浏览和购买记录
+				behaviorService.addBehavior(user.getId(), orderMusic.getMusic().getId(), 2, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DATE));
+				//更新用户分类信息
+				userService.classifyUser(user.getId(), user.getAge());
 			}
+			
 			
 			// 使用依赖注入获取邮件发送类
 			ApplicationContext context = new ClassPathXmlApplicationContext("application-mail.xml");

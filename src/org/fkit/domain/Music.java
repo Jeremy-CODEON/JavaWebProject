@@ -2,7 +2,7 @@ package org.fkit.domain;
 
 import java.io.Serializable;
 
-public class Music implements Serializable{
+public class Music implements Serializable, Comparable<Music>{
 	
 	/**
 	 * 
@@ -172,5 +172,13 @@ public class Music implements Serializable{
 				+ album + ", duration=" + duration + ", category=" + category + ", cost=" + cost + ", state=" + state
 				+ ", purchases=" + purchases + "]";
 	}
+	
+	// ≈≈–Ú£¨∞¥’’Ωµ–Ú≈≈¡–
+	@Override
+	public int compareTo(Music cmusic) {
+		return cmusic.getPurchases()-this.purchases;
+	}
+	
+	
 	
 }

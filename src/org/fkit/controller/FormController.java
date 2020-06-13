@@ -25,4 +25,10 @@ public class FormController {
 	public String addMusicForm() {
 		return "/addMusicForm";
 	}
+	
+	// 跳转添加销售页
+	@RequestMapping(value = "/addSalerForm")
+	public String addSalerForm() {
+		return "/addSalerForm";
+	}
 }

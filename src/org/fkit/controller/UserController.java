@@ -13,6 +13,7 @@ import org.fkit.domain.Music;
 import org.fkit.domain.Order;
 import org.fkit.domain.OrderMusic;
 import org.fkit.domain.User;
+import org.fkit.service.BehaviorService;
 import org.fkit.service.CartService;
 import org.fkit.service.LogService;
 import org.fkit.service.MusicService;
@@ -28,6 +29,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import othersPOJO.IPUtil;
 
 @Controller
 public class UserController {
@@ -46,6 +49,12 @@ public class UserController {
 	@Autowired
 	@Qualifier("logService")
 	private LogService logService;
+	@Autowired
+	@Qualifier("behaviorService")
+	private BehaviorService behaviorService;
+	
+	@Autowired
+    HttpServletRequest req;
 
 	// 用户登录
 	@PostMapping(value = "/loginUser")
@@ -54,10 +63,19 @@ public class UserController {
 
 		if (user != null) {
 			session.setAttribute("user", user);
+			
+			// 获取用户客户端ip
+			String ip=IPUtil.getIP(req);
+			//System.out.println(ip);
+			
+			// 记录登录时间
+			long loginTime=System.currentTimeMillis();
+			session.setAttribute("loginTime", loginTime);
 
 			// 插入用户登录的日志记录
 			Date date = new Date();
-			logService.addLog(user.getId(), "用户(" + user.getLoginname() + ")登录平台", date.toString());
+			
+			logService.addLog(user.getId(), "用户(" + user.getLoginname() + ")登录平台，IP="+ip, date.toString());
 
 			mv.setView(new RedirectView("/SSMdemo/index"));// 转向Servlet
 		} else {
@@ -92,10 +110,25 @@ public class UserController {
 		User user = (User) session.getAttribute("user");
 
 		session.removeAttribute("user");
+		
+		// 获取用户客户端ip
+		String ip=IPUtil.getIP(req);
+		
+		// 统计用户在站浏览时长
+		long loginTime = (long)session.getAttribute("loginTime");
+		long logoutTime = System.currentTimeMillis();
+		double browseTime = (double)(logoutTime-loginTime)/1000;//以秒为单位
+		// 更新用户的平均浏览时长和登录次数
+		double originBrowseTime=user.getBrowsetime();
+		Integer originLoginTime=user.getLogintime();
+		Integer newLoginTime=originLoginTime+1;
+		double newBrowseTime=(originBrowseTime*originLoginTime+browseTime)/newLoginTime;
+		userService.updateBrowsetime(newBrowseTime, user.getId());
+		userService.updateLogintime(newLoginTime, user.getId());
 
 		// 插入用户登录的日志记录
 		Date date = new Date();
-		logService.addLog(user.getId(), "用户(" + user.getLoginname() + ")注销登录", date.toString());
+		logService.addLog(user.getId(), "用户(" + user.getLoginname() + ")注销登录，IP="+ip, date.toString());
 
 		mv.addObject("message", "用户已注销！");
 		mv.setView(new RedirectView("/SSMdemo/index"));// 转向Servlet
@@ -104,13 +137,13 @@ public class UserController {
 
 	// 用户注册
 	@PostMapping(value = "/register")
-	public ModelAndView register(String loginname, String password, ModelAndView mv, HttpSession session) {
+	public ModelAndView register(String loginname, String password, Integer age, ModelAndView mv, HttpSession session) {
 		// System.out.println(loginname);
 		// System.out.println(password);
 
 		if (userService.checkRegister(loginname) == true) {
 			// 昵称未被注册
-			int flag = userService.register(loginname, password);
+			int flag = userService.register(loginname, password, age);
 
 			if (flag == 1) {
 				// 注册成功
@@ -140,6 +173,29 @@ public class UserController {
 
 		List<Order> orderList = orderService.getByUserId(user.getId());
 		mv.addObject("orderList", orderList);
+		
+		int mlmusic_id=behaviorService.getMostLikeMusicId(user.getId());
+		if(mlmusic_id>=0)
+		{
+			// 更新最喜爱音乐
+			userService.updateMlmusicId(mlmusic_id, user.getId());
+		}	
+		
+		// 更新用户信息
+		User newUser = userService.getById(user.getId());
+		session.setAttribute("user", newUser);
+		user=newUser;
+		
+		// 获取用户标签
+		List<String> userTagList = userService.getUserTag(user.getClassification()); 
+		mv.addObject("userTagList", userTagList);
+		
+		// 构建“猜你喜欢”音乐列表
+		List<Music> mlMusicList = userService.getLikeMusic(user.getMlmusic_id());
+		mv.addObject("mlMusicList", mlMusicList);
+		// 构建“别人在听”音乐列表
+		List<Music> olMusicList = userService.getOtherLikeMusic(user.getClassification());
+		mv.addObject("olMusicList", olMusicList);
 
 		// System.out.println(user.getCartList());
 		mv.setViewName("userInfo");
